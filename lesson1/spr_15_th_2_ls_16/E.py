@@ -1,6 +1,28 @@
+"""
+Находим самое длинное слово в предложении.
+Берётся случайное предложение из текста и в нём ищется самое длинное слово.
+"""
+
+
 def get_longest_word(line: str) -> str:
-    # Здесь реализация вашего решения
-    pass
+    """
+    Создаем новый вложенный список
+    Проходим по списку
+    Сравниваем каждый элемент с образцом
+    Выводим самый длинный элемент.
+    :param line:
+    :return:
+    """
+    word = []  # Заносим самое длинное слово
+    comparison = [list(i) for i in line]  # Создаем вложенный словарь
+    word.append(comparison[0])  # Заносим первое слово как образец для сравн.
+
+    for j in range(len(comparison)):
+        if len(comparison[j]) > len(word[0]):
+            word[0] = comparison[j]
+
+    return (''.join(word[0]))
+
 
 def read_input() -> str:
     """
@@ -9,11 +31,12 @@ def read_input() -> str:
     Пробелы могут стоять в самом начале строки и в самом её конце.
     Текст заканчивается переносом строки,
     этот символ не включается в число остальных L символов.
-    :return: line
-    """
     n = input()  # n - длина текста L (1 ≤ L ≤ 105)
-    line = input().strip()  # txt, состоящий из строчных лат. букв и пробелов
+    :return line:
+    """
+    line = input().split()  # txt, состоящий из строчных лат. букв и пробелов
     return line
+
 
 def print_result(result: str) -> None:
     """
@@ -22,7 +45,7 @@ def print_result(result: str) -> None:
     Во второй строке выведите его длину.
     Если подходящих слов несколько, выведите то, которое встречается раньше.
     :param result:
-    :return:
+    :return None:
     """
     print(result)
     print(len(result))
