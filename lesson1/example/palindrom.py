@@ -1,14 +1,34 @@
-"""Считаем палиндром методом вывода наоборот"""
-def palindrom(arr):
-	c = []
-	for i in range(0, len(arr)):
-		a = arr[i]
-		b = arr[i][::-1]
-		if a == b:
-			c.append(arr[i])
-	c.sort()
-	return c
+"""
+Алгоритм проверяет, будет ли фраза палиндромом.
+Учитываются только буквы и цифры,
+заглавные и строчные буквы считаются одинаковыми.
+Решение должно работать за O(N), где N — длина строки на входе.
+"""
+import re
 
 
-arr = ['65535']
-print(palindrom(arr))
+def is_palindrome(line: str) -> bool:
+    """
+    Логика проверки фразы на палиндром.
+    Формат ввода
+    В единственной строке записана фраза или слово.
+    Буквы могут быть только латинские.
+    Длина текста не превосходит 20000 символов.
+    Фраза может состоять из строчных и прописных латинских букв,
+    цифр, знаков препинания.
+    Формат вывода
+    Выведите «True», если фраза является палиндромом, и «False», если нет.
+    :param line:
+    :return:
+    """
+    altered_string = re.sub(r'[^\w\s]', '', line)
+    altered_string = ''.join(altered_string.lower().strip().split())
+    reversealt = altered_string[::-1]
+
+    if altered_string == reversealt:
+        return True
+    else:
+        return False
+
+
+print(is_palindrome(input().strip().lower()))

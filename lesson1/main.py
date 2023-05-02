@@ -4,8 +4,178 @@
 Считывание массивов
 Является ли число или числа простым
 Решето Эратосфена. Помогает найти все простые числа, не превосходящие n.
+Функцию, которая для элемента возвращает всех его соседей. Матрица
+Находим самое длинное слово в предложении.
+Регулярка чтобы убрать знаки препинания и пробел
+Алгоритм проверяет, будет ли фраза палиндромом.
+Функция переводит целое число из десятичной системы в двоичную.
+Получаем на входе два числа в двоичной системе счисления,
+Необходимо вывести их сумму, также в двоичной системе
 """
 import time
+import re
+
+
+class Sumbinary:
+	"""
+	Получаем на входе два числа в двоичной системе счисления
+	Необходимо вывести их сумму, также в двоичной системе
+	Решение должно работать за O(N),
+	где N –— количество разрядов максимального числа на входе
+	Формат ввода
+	Два числа в двоичной системе счисления, каждое на отдельной строке
+	Длина каждого числа не превосходит 10 000 символов
+	Формат вывода
+	Одно число в двоичной системе счисления.
+	"""
+	from typing import Tuple
+
+	def get_sum(first_number, second_number):
+		"""
+		Получаем на вход два двоичных числа
+		Заносим в списки
+		Дополняем нулями
+		Прогоняем по списку, сравниваем с условиями и создаем новый список
+		В каждой проверке обновляем значение value
+		В конце итерируемого списка если флаг переполнен, добавляем 1.
+		:param first_number:
+		:param second_number:
+		:return:
+		"""
+		# получаем числа и переворачиваем для удобства подсчета
+		first_number = first_number[::-1]
+		second_number = second_number[::-1]
+		# дополнить нулями
+		size = max(len(first_number), len(second_number))
+		first_number += [0] * (size - len(first_number))
+		second_number += [0] * (size - len(second_number))
+		# переменные
+		result = []
+		overflow = 0
+		# код
+		for i in zip(first_number, second_number):
+			value = i[0] + i[1] + overflow
+			#  другой вариант решения
+			#   overflow = value // 2
+			#   result.append(value%2)
+
+			if value == 0:
+				result.append(0)
+				overflow = 0
+			if value == 1:
+				result.append(1)
+				overflow = 0
+			if value == 2:
+				result.append(0)
+				overflow = 1
+			if value == 3:
+				result.append(1)
+				overflow = 1
+		# если флаг переполнения установлен - добавить бит в начало нового числа
+		if overflow == 1:
+			result.append(1)
+		result = map(int, result[::-1])
+		result = " ".join(list(map(str, result)))
+		result = str(result.replace(' ', ''))
+		return result
+
+	def read_input():
+		"""
+		Формат ввода
+		Два числа в двоичной системе счисления, каждое на отдельной строке.
+		Длина каждого числа не превосходит 10 000 символов.
+		:return:
+		"""
+		# получить бинарное число в виде массива чисел (бит)
+		first_number = [
+			*map(int, input("Введите первое число в 2ой системе: "))]
+		second_number = [
+			*map(int, input("Введите второе число в 2ой системе: "))]
+		return first_number, second_number
+
+	first_number, second_number = read_input()
+	# Формат вывода
+	# Одно число в двоичной системе счисления.
+	print(get_sum(first_number, second_number))
+
+
+class Binary:
+	"""
+	Функция переводит целое число из десятичной системы в двоичную.
+	"""
+	def to_binary(number: int) -> str:
+		"""
+		Проверяем на ноль
+		Затем по формуле делим на 2, собираем остаток
+		Далее остаток в списке инвертируем
+		Убираем все лишние знаки препинания
+		:param number:
+		:return:
+		"""
+		if number != 0:
+			binary = []
+			while number != 0:
+				b, c = number // 2, number % 2
+				number = b
+				binary.append(c)
+			binary = map(int, binary[::-1])
+			binary = " ".join(list(map(str, binary)))
+			binary = str(binary.replace(' ', ''))
+			return binary
+		return str(number)
+
+
+	def read_input() -> int:
+		return int(input().strip())
+
+
+	print(to_binary(read_input()))
+
+
+
+
+def is_palindrome(line: str) -> bool:
+    """
+    Логика проверки фразы на палиндром.
+    Формат ввода
+    В единственной строке записана фраза или слово.
+    Буквы могут быть только латинские.
+    Длина текста не превосходит 20000 символов.
+    Фраза может состоять из строчных и прописных латинских букв,
+    цифр, знаков препинания.
+    Учитываются только буквы и цифры,
+    заглавные и строчные буквы считаются одинаковыми.
+    Решение должно работать за O(N), где N — длина строки на входе.
+    Формат вывода
+    Выведите «True», если фраза является палиндромом, и «False», если нет.
+    :param line:
+    :return:
+    """
+    altered_string = ''.join(re.sub(r'[^\w\s]', '', line).lower().strip().split())
+
+    if altered_string == altered_string[::-1]:
+        return True
+    else:
+        return False
+
+
+    print(is_palindrome(input()))
+
+
+def regular_del_punctuation_marks():
+	"""
+	Регуляркой убираем все знаки препинания и заменяем на пробел(re.sub)
+	Join применяем для удаления пробелов
+	Формат нужен для удаления запятых из пайтона.
+	:return:
+	"""
+	line = 'A man, a plan, a canal: Panama'
+	altered_string = re.sub(r'[^\w\s]', '', line)
+	altered_string = ''.join(altered_string.lower().strip().split())
+	print('Моя новая строка:\n {}'.format(altered_string))
+	#  or
+	altered_string = str(''.join(altered_string.lower().strip().split())).format(altered_string)
+	print(f'Моя новая строка:\n {altered_string}')
 
 
 def time_start_stop():
@@ -75,12 +245,32 @@ def find_simple_number_in_stdin(n):
 	return True
 
 
+def get_longest_word(line: str) -> str:
+    """
+    Создаем новый вложенный список
+    Проходим по списку
+    Сравниваем каждый элемент с образцом
+    Выводим самый длинный элемент.
+    :param line:
+    :return:
+    """
+    word = []  # Заносим самое длинное слово
+    comparison = [list(i) for i in line]  # Создаем вложенный словарь
+    word.append(comparison[0])  # Заносим первое слово как образец для сравн.
+
+    for j in range(len(comparison)):
+        if len(comparison[j]) > len(word[0]):
+            word[0] = comparison[j]
+
+    return (''.join(word[0]))
+
+
 class Eratosthenes:
 	"""
 	Решето Эратосфена. Помогает найти все простые числа, не превосходящие n.
 	"""
 
-	def eratosthenes(n):
+	def eratosthenes(self, n):
 		"""
 		Решето Эратосфена. Помогает найти все простые числа, не превосходящие n.
 		Алгоритм такой:
@@ -106,7 +296,7 @@ class Eratosthenes:
 					numbers[j] = False
 		return numbers
 
-	def eratosthenes_effective(n):
+	def eratosthenes_effective(self, n):
 		"""
 		Алгоритм можно оптимизировать.
 		Для каждого простого числа p начнём отмечать числа,
@@ -122,7 +312,7 @@ class Eratosthenes:
 					numbers[j] = False
 		return numbers
 
-	def get_least_primes_linear(n):
+	def get_least_primes_linear(self, n):
 		"""
 		Линейное решето.
 		Существует метод решения задачи нахождения всех простых чисел,
@@ -165,3 +355,74 @@ class Eratosthenes:
 					break
 				lp[x] = p  # Обновляем lp[p * i] = p
 		return primes, lp
+
+
+class Neighbours:
+	"""
+	Дана матрица.
+	Нужно написать функцию, которая для элемента возвращает всех его соседей.
+	Соседним считается элемент, находящийся от текущего на одну ячейку влево,
+	вправо, вверх или вниз.
+	Диагональные элементы соседними не считаются.
+	Например, в матрице A соседними элементами для (0, 0) будут 2 и 0.
+	А для (2, 1) –— 1, 2, 7, 7.
+	"""
+
+	def get_neighbours(self, matrix, row, column):
+		"""
+		В цикле сначала задаем позицию в столбце сверху и снизу от сущности
+		Затем проверяем начальный и конечный индексы, на исключение
+		Добавляем в словарь если есть что
+		Опять перебор, но уже слева справа
+		И так же добавляем в словарь.
+		:param matrix:
+		:param row:
+		:param column:
+		:param n:
+		:param m:
+		:return: result
+		"""
+
+		result = []
+
+		for col_m in (
+		column - 1, column + 1):  # Координаты элемента по столбцам
+			try:
+				if col_m >= 0:
+					result.append(matrix[row][col_m])  # left, right
+			except Exception:
+				pass
+
+		for row_n in (row - 1, row + 1):  # Координаты элемента по строкам
+			try:
+				if row_n >= 0:
+					result.append(matrix[row_n][column])  # up, down
+			except Exception:
+				pass
+
+		return sorted(result)
+
+	def read_input(self):
+		"""
+		Формат ввода
+		В первой строке задано n — количество строк матрицы.
+		Во второй — количество столбцов m. Числа m и n не превосходят 1000.
+		В следующих n строках задана матрица.
+		Элементы матрицы — целые числа, по модулю не превосходящие 1000.
+		В последних двух строках записаны координаты элемента,
+		соседей которого нужно найти. Индексация начинается с нуля.
+		Формат вывода
+		Напечатайте нужные числа в возрастающем порядке через пробел.
+		"""
+		n = int(input())  # rows
+		m = int(input())  # columns
+		matrix = []
+		for i in range(n):  # from matrix to list
+			matrix.append(list(map(int, input().strip().split())))
+		row = int(input())  # Координаты элемента, строка
+		column = int(input())  # Координаты элемента, столбец
+		return matrix, row, column
+
+	matrix, row, column = read_input()
+
+	print(" ".join(map(str, get_neighbours(matrix, row, column))))

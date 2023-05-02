@@ -23,6 +23,7 @@ def get_neighbours(matrix, row, column):
     :param m:
     :return: result
     """
+
     result = []
 
     for col_m in (column-1, column+1):  # Координаты элемента по столбцам
