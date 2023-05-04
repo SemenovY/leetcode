@@ -1,6 +1,4 @@
 
-F
-spr_15_th_2_ls_16/G.py,f/e/fe3844485006d2ff03d90205315305c416c0bd17
 D
 example/palindrom.py,2/3/23e5c0df11be41a2e4149c7b350e778d319a1be2
 F
@@ -35,3 +33,15 @@ B
 example/output.txt,e/8/e8e0eba89cd12cc5bf1b7953670cfb18aa3055d9
 M
 example/sum_input_many_str.py,e/8/e8489f85b904bc9713f568e0079210c782d866d5
+F
+spr_15_th_2_ls_16/I.py,9/d/9d93c350d782d69b12872bb73e0b305a3d9597f7
+@
+example/test2.py,0/0/00228e45ee7e143446b4340fe640ba9983403a4d
+A
+example/simple.py,6/f/6f423c0b11577dc1dc319b1209773244bebb9604
+F
+spr_15_th_2_ls_16/J.py,e/e/eeef3a1bdc638eafb80f7e54947485b0219fd125
+A
+example/symple.py,9/e/9efd2bef99e5e20fb03bae79bc32e9093c38019e
+F
+spr_15_th_2_ls_16/G.py,f/e/fe3844485006d2ff03d90205315305c416c0bd17
