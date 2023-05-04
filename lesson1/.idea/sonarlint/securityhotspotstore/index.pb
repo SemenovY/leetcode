@@ -2,8 +2,6 @@
 D
 example/palindrom.py,2/3/23e5c0df11be41a2e4149c7b350e778d319a1be2
 F
-spr_15_th_2_ls_16/B.py,f/4/f459d40ee3c739e7f4a9173528e0a4c3b1c57c90
-F
 spr_15_th_2_ls_16/A.py,a/4/a411e4583dbf3fbf98c119814d93072f50b2642a
 F
 spr_15_th_2_ls_16/C.py,0/6/0691e82b97ef3a0da2fd9491c725cf4ca8d238f4
